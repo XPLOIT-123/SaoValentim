@@ -1,4 +1,4 @@
-// Animation Timeline
+// Function to initialize animation timeline
 const animationTimeline = () => {
   // Spit chars that needs to be animated individually
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
@@ -275,7 +275,7 @@ const animationTimeline = () => {
   });
 };
 
-// Import the data to customize and insert them into page
+// Import the data to customize and insert them into the page
 const fetchData = () => {
   fetch("../customize.json")
     .then((data) => data.json())
@@ -294,12 +294,12 @@ const fetchData = () => {
     });
 };
 
-// Run fetch and animation in sequence
-const resolveFetch = () => {
-  return new Promise((resolve, reject) => {
-    fetchData();
-    resolve("Fetch done!");
+// Run fetch and animation in sequence when the document is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  fetchData().then(() => {
+    document.body.addEventListener('click', () => {
+      animationTimeline();
+    });
   });
-};
+});
 
-resolveFetch().then(animationTimeline());
