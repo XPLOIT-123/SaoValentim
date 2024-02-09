@@ -60,6 +60,7 @@ const animationTimeline = () => {
     .from(".three", 0.7, {
       opacity: 0,
       y: 10,
+      // scale: 0.7
     })
     .to(
       ".three",
@@ -204,6 +205,7 @@ const animationTimeline = () => {
       {
         opacity: 0,
         y: -50,
+        // scale: 0.3,
         rotation: 150,
         skewX: "30deg",
         ease: Elastic.easeOut.config(1, 0.5),
@@ -263,8 +265,12 @@ const animationTimeline = () => {
       "+=1"
     );
 
+  // tl.seek("currentStep");
+  // tl.timeScale(2);
+
   // Restart Animation on click
-  document.body.addEventListener("click", () => {
+  const replyBtn = document.getElementById("replay");
+  replyBtn.addEventListener("click", () => {
     tl.restart();
   });
 };
@@ -296,4 +302,4 @@ const resolveFetch = () => {
   });
 };
 
-resolveFetch().then(animationTimeline);
+resolveFetch().then(animationTimeline());
