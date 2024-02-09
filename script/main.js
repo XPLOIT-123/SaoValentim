@@ -1,4 +1,4 @@
-// Function to initialize animation timeline
+// Animation Timeline
 const animationTimeline = () => {
   // Spit chars that needs to be animated individually
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
@@ -60,7 +60,6 @@ const animationTimeline = () => {
     .from(".three", 0.7, {
       opacity: 0,
       y: 10,
-      // scale: 0.7
     })
     .to(
       ".three",
@@ -205,7 +204,6 @@ const animationTimeline = () => {
       {
         opacity: 0,
         y: -50,
-        // scale: 0.3,
         rotation: 150,
         skewX: "30deg",
         ease: Elastic.easeOut.config(1, 0.5),
@@ -265,17 +263,13 @@ const animationTimeline = () => {
       "+=1"
     );
 
-  // tl.seek("currentStep");
-  // tl.timeScale(2);
-
   // Restart Animation on click
-  const replyBtn = document.getElementById("replay");
-  replyBtn.addEventListener("click", () => {
+  document.body.addEventListener("click", () => {
     tl.restart();
   });
 };
 
-// Import the data to customize and insert them into the page
+// Import the data to customize and insert them into page
 const fetchData = () => {
   fetch("../customize.json")
     .then((data) => data.json())
@@ -294,12 +288,12 @@ const fetchData = () => {
     });
 };
 
-// Run fetch and animation in sequence when the document is loaded
-document.addEventListener("DOMContentLoaded", () => {
-  fetchData().then(() => {
-    document.body.addEventListener('click', () => {
-      animationTimeline();
-    });
+// Run fetch and animation in sequence
+const resolveFetch = () => {
+  return new Promise((resolve, reject) => {
+    fetchData();
+    resolve("Fetch done!");
   });
-});
+};
 
+resolveFetch().then(animationTimeline);
